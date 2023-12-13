@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: custom-scheduler-rolebinding
+  namespace: myscheds  # Specify the namespace
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: myscheds  # Specify the namespace
+roleRef:
+  kind: ClusterRole
+  name: custom-scheduler-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: custom-scheduler-role
+  namespace: mybabyname  # Specify the namespace
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
